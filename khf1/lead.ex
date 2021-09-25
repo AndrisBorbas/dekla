@@ -21,7 +21,9 @@ defmodule Khf1 do
           for n <- 3..k do
             temp =
               :lists.usort(
-                for start <- 1..k, diff <- 1..k, szam_sor_ossz(start, diff, n) == k do
+                for start <- 1..trunc(k / 3 + 1),
+                    diff <- 1..trunc(k / 3 + 1),
+                    szam_sor_ossz(start, diff, n) == k do
                   {start, diff}
                 end
               )

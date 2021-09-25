@@ -30,7 +30,9 @@ defmodule Khf1 do
           for n <- 3..k do
             temp =
               :lists.usort(
-                for start <- 1..k, diff <- 1..k, szam_sor_ossz(start, diff, n) == k do
+                for start <- 1..trunc(k / 3 + 1),
+                    diff <- 1..trunc(k / 3 + 1),
+                    szam_sor_ossz(start, diff, n) == k do
                   {start, diff}
                 end
               )
@@ -67,10 +69,11 @@ defmodule Khf1 do
   end
 end
 
-# IO.puts(Benchmark.measure(fn -> {Khf1.sit!(239), Khf1.good_flocks(120)} end))
+# 8, 15 sec
+IO.puts(Benchmark.measure(fn -> {Khf1.sit!(239), Khf1.good_flocks(120)} end))
 
-IO.puts(Benchmark.measure(fn -> {Khf1.sit!(15), Khf1.good_flocks(20)} end))
+# 9, 15 sec
+IO.puts(Benchmark.measure(fn -> {Khf1.sit!(400), Khf1.good_flocks(170)} end))
 
-IO.inspect(Khf1.sit!(3))
-IO.inspect(Khf1.sit!(6))
-IO.inspect(Khf1.good_flocks(20))
+# 10, 15 sec
+IO.puts(Benchmark.measure(fn -> {Khf1.sit!(600), Khf1.good_flocks(0)} end))
