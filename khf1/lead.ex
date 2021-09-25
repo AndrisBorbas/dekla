@@ -2,7 +2,7 @@ defmodule Khf1 do
   @moduledoc """
   101 kiskutya
   @author "Borbás András <andris.borbas@gmail.com>"
-  @date   "2021-09-21"
+  @date   "2021-09-25"
   """
 
   @type variant :: {h :: integer, d :: integer}
@@ -18,12 +18,10 @@ defmodule Khf1 do
     l =
       Enum.filter(
         :lists.usort(
-          for n <- 3..ceil(k / 2) do
+          for n <- 3..k do
             temp =
               :lists.usort(
-                for start <- 1..ceil(k / 2),
-                    diff <- 1..ceil(k / 2),
-                    szam_sor_ossz(start, diff, n) === k do
+                for start <- 1..k, diff <- 1..k, szam_sor_ossz(start, diff, n) == k do
                   {start, diff}
                 end
               )
@@ -56,6 +54,6 @@ defmodule Khf1 do
   defp szam_sor_ossz(_s, _d, 0), do: 0
 
   defp szam_sor_ossz(s, d, n) do
-    szam_sor_ossz(s + d, d, n - 1) + s
+    n / 2 * (2 * s + (n - 1) * d)
   end
 end

@@ -11,7 +11,7 @@ defmodule Khf1 do
   @moduledoc """
   101 kiskutya
   @author "Borbás András <andris.borbas@gmail.com>"
-  @date   "2021-09-21"
+  @date   "2021-09-25"
   """
 
   @type variant :: {h :: integer, d :: integer}
@@ -30,9 +30,7 @@ defmodule Khf1 do
           for n <- 3..k do
             temp =
               :lists.usort(
-                for start <- 1..k,
-                    diff <- 1..k,
-                    szam_sor_ossz(start, diff, n) == k do
+                for start <- 1..k, diff <- 1..k, szam_sor_ossz(start, diff, n) == k do
                   {start, diff}
                 end
               )
@@ -62,7 +60,9 @@ defmodule Khf1 do
   # s kezdőértékű,
   # d különbségű,
   # n elemű számtani sorozat összegét.
-  def szam_sor_ossz(s, d, n) do
+  defp szam_sor_ossz(_s, _d, 0), do: 0
+
+  defp szam_sor_ossz(s, d, n) do
     n / 2 * (2 * s + (n - 1) * d)
   end
 end
@@ -74,4 +74,3 @@ IO.puts(Benchmark.measure(fn -> {Khf1.sit!(15), Khf1.good_flocks(20)} end))
 IO.inspect(Khf1.sit!(3))
 IO.inspect(Khf1.sit!(6))
 IO.inspect(Khf1.good_flocks(20))
-IO.inspect(Khf1.szam_sor_ossz(3, 1, 1) == 3)
